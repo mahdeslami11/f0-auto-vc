@@ -4,7 +4,8 @@ import numpy as np
 from scipy import signal
 from librosa.filters import mel
 from scipy.signal import get_window
-
+import os
+from shutil import copyfile
 
 
 def butter_highpass(cutoff, fs, order=5):
@@ -85,4 +86,31 @@ def get_mask_from_lengths(lengths, max_len):
 def pad_seq_to_2(x, len_out=128):
     len_pad = (len_out - x.shape[1])
     assert len_pad >= 0
-    return np.pad(x, ((0,0),(0,len_pad),(0,0)), 'constant'), len_pad    
+    return np.pad(x, ((0,0),(0,len_pad),(0,0)), 'constant'), len_pad
+
+def makedirs(path):
+    if not os.path.exists(path):
+        print(" [*] Make directories : {}".format(path))
+        os.makedirs(path)
+
+def prepare_dirs(config):
+    if hasattr(config, 'save_path'):
+        log_dir = config.save_path
+        os.makedirs(log_dir, exist_ok=True)
+
+        if hasattr(config, 'name'):
+            exp_name = config.name
+            root_path = os.path.join(log_dir, exp_name)
+            log_path = os.path.join(root_path, 'log')
+            model_path = os.path.join(root_path, 'model')
+            sample_path = os.path.join(root_path, 'samples')
+
+            makedirs(log_path)
+            makedirs(model_path)
+            makedirs(sample_path)
+
+            copyfile("hparams.py", os.path.join(root_path, "hparams_exp.py"))
+            copyfile(config.architecture, os.path.join(root_path, os.path.basename(config.architecture)))
+            copyfile(config.solver, os.path.join(root_path, os.path.basename(config.solver)))
+
+            return model_path, log_path, sample_path
