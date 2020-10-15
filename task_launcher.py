@@ -7,12 +7,12 @@ import importlib
 
 def parse_args():
     parser = argparse.ArgumentParser(description="")
-    parser.add_argument('--name', type=str, default="autovc_f0_voicesplit")
+    parser.add_argument('--name', type=str, default="autovc_voicesplit_freq16_seqlen128_l1_nof0")
     parser.add_argument('--save_path', type=str, default="/hd0/f0-autovc/exp")
     parser.add_argument('--data_dir', type=str, default='/hd0/f0-autovc/preprocessed/sr16000_npz')
     parser.add_argument('--checkpoint', type=str, default=None)
-    parser.add_argument('--architecture', type=str, default='architectures/arch_autovc_f0.py')
-    parser.add_argument('--solver', type=str, default='solver/autovc_f0.py')
+    parser.add_argument('--architecture', type=str, default='architectures/arch_autovc.py')
+    parser.add_argument('--solver', type=str, default='solver/autovc.py')
     args = parser.parse_args()
     return args
 

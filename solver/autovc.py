@@ -78,13 +78,6 @@ class AutoVC(Base):
         g_loss.backward()
         self.optim['g'].step()
 
-        # Logging.
-        loss = {}
-        loss['G/loss_id'] = g_loss_id.item()
-        loss['G/loss_id_psnt'] = g_loss_id_psnt.item()
-        loss['G/loss_cd'] = g_loss_cd.item()
-
-
         ## ----------------------------------------------
         ## Collecting losses and outputs
         ## ----------------------------------------------
@@ -118,12 +111,6 @@ class AutoVC(Base):
 
             # Backward and optimize.
             g_loss = g_loss_id + g_loss_id_psnt + g_loss_cd
-
-            # Logging.
-            loss = {}
-            loss['G/loss_id'] = g_loss_id.item()
-            loss['G/loss_id_psnt'] = g_loss_id_psnt.item()
-            loss['G/loss_cd'] = g_loss_cd.item()
 
             ## ----------------------------------------------
             ## Collecting losses and outputs

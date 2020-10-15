@@ -6,6 +6,7 @@ from librosa.filters import mel
 from scipy.signal import get_window
 import os
 from shutil import copyfile
+from math import ceil
 
 
 def butter_highpass(cutoff, fs, order=5):
@@ -87,6 +88,17 @@ def pad_seq_to_2(x, len_out=128):
     len_pad = (len_out - x.shape[1])
     assert len_pad >= 0
     return np.pad(x, ((0,0),(0,len_pad),(0,0)), 'constant'), len_pad
+
+def pad_seq(x, base=32, constant_values=0):
+    len_out = int(base * ceil(float(x.shape[0])/base))
+    len_pad = len_out - x.shape[0]
+    assert len_pad >= 0
+    return np.pad(x, ((0,len_pad),(0,0)), 'constant', constant_values=constant_values), len_pad
+
+def make_onehot(label, n_classes):
+    speaker_vector = np.zeros(n_classes)
+    speaker_vector[label] = 1
+    return speaker_vector.astype(dtype=np.float32)
 
 def makedirs(path):
     if not os.path.exists(path):

@@ -78,13 +78,6 @@ class AutoVC(Base):
         g_loss.backward()
         self.optim['g'].step()
 
-        # Logging.
-        loss = {}
-        loss['G/loss_id'] = g_loss_id.item()
-        loss['G/loss_id_psnt'] = g_loss_id_psnt.item()
-        loss['G/loss_cd'] = g_loss_cd.item()
-
-
         ## ----------------------------------------------
         ## Collecting losses and outputs
         ## ----------------------------------------------
@@ -118,12 +111,6 @@ class AutoVC(Base):
 
             # Backward and optimize.
             g_loss = g_loss_id + g_loss_id_psnt + g_loss_cd
-
-            # Logging.
-            loss = {}
-            loss['G/loss_id'] = g_loss_id.item()
-            loss['G/loss_id_psnt'] = g_loss_id_psnt.item()
-            loss['G/loss_cd'] = g_loss_cd.item()
 
             ## ----------------------------------------------
             ## Collecting losses and outputs
@@ -184,32 +171,3 @@ class AutoVC(Base):
         self.logger.image_summary("reconstruction",
                                   plot_spectrogram_to_numpy("reconstruction", outputs['recon'][0].numpy().T),
                                   epoch)
-
-
-if __name__=="__main__":
-    def parse_args():
-        parser = argparse.ArgumentParser(description="")
-        parser.add_argument('--name', type=str, default="test")
-        parser.add_argument('--save_path', type=str, default="/hd0/voice_mixer/VAEAutoVC/")
-        parser.add_argument('--data_dir', type=str, default='/hd0/voice_mixer/preprocessed/VCTK20_f0_norm_all/seen')
-        args = parser.parse_args()
-        return args
-
-    args = parse_args()
-
-    model_dir, log_dir, sample_dir = prepare_dirs(args)
-
-    train_loader, val_loader, testset = prepare_dataloaders(args.data_dir, hparams)
-
-    solver = FastVC(model_dir,
-                     log_dir,
-                     sample_dir)
-
-
-    solver.train(
-              train_loader,
-              val_loader,
-              testset,
-              hparams.nepochs,
-              hparams.save_every,
-              verbose=True)
