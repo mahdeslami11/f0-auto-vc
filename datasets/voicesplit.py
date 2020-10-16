@@ -11,7 +11,6 @@ import glob
 import torch
 
 import random
-import soundfile as sf
 from scipy import signal
 from librosa.filters import mel
 from numpy.random import RandomState
@@ -80,7 +79,7 @@ def build_from_path(hparams, in_dir, out_dir, spk_emb_path, spk2gen_path, num_wo
         pbar = pkbar.Pbar(name='loading and processing dataset', target=len(all_wav_path))
 
         futures = []
-        for j, wav_path in enumerate(all_wav_path):
+        for j, wav_path in tqdm(enumerate(all_wav_path)):
             wav_name = os.path.basename(wav_path)
             spk_emb = spk_embs[emb_idx][1] if spk_emb_path else None
 

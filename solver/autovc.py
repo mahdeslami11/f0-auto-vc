@@ -88,6 +88,7 @@ class AutoVC(Base):
         }
 
         outputs = {
+            'GT': x_real.detach().cpu(),
             'recon': x_identic_psnt.detach().cpu(),
         }
 
@@ -122,6 +123,7 @@ class AutoVC(Base):
             }
 
             outputs = {
+                'GT': x_real.detach().cpu(),
                 'recon': x_identic_psnt.detach().cpu(),
             }
 
@@ -168,7 +170,10 @@ class AutoVC(Base):
         self.global_step = dd['global_step']
 
     def summary(self, outputs, epoch):
-        self.logger.image_summary("reconstruction",
+        self.logger.image_summary("mel-spectrogram",
+                                  plot_spectrogram_to_numpy("ground-truth", outputs['GT'][0].numpy().T),
+                                  epoch)
+        self.logger.image_summary("mel-spectrogram",
                                   plot_spectrogram_to_numpy("reconstruction", outputs['recon'][0].numpy().T),
                                   epoch)
 
