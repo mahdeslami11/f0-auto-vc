@@ -132,6 +132,8 @@ def _processing_data(hparams, full_path, spk_label, spk_emb, gender, npz_name, p
         'f0': f0_norm.astype(np.float32),
         'spk_label': spk_label
     }
+    if spk_emb is not None:
+        data['spk_emb'] = spk_emb
 
     np.savez(npz_name, **data)
     pbar.update(i)

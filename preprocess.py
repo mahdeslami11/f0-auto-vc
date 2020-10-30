@@ -19,8 +19,8 @@ if __name__ == "__main__":
     parser.add_argument('--in_dir', type=str, default='/hd0/dataset/voicesplit/')
     parser.add_argument('--out_dir', type=str, default='/hd0/f0-autovc/preprocessed/sr16000_npz')
     parser.add_argument('--num_workers', type=str, default=None)
-    parser.add_argument('--spk_emb', type=str, default=None) # spk_emb (speaker embedding을 포함할 것인가)
-    parser.add_argument('--spk2gen', type=str, default="assets/spk2gen_voicesplit.pkl") # spk_emb (speaker embedding을 포함할 것인가)
+    parser.add_argument('--spk_emb', type=str, default=None, help='speaker embedding path (default: onehot)')
+    parser.add_argument('--spk2gen', type=str, default="assets/spk2gen_voicesplit.pkl", help="pickle file path for converting speaker to gender")
     args = parser.parse_args()
     print(hparams_debug_string())
 
