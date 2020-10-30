@@ -187,7 +187,6 @@ class Generator(nn.Module):
         self.postnet = Postnet()
 
     def forward(self, x, f0_src, c_org, c_trg):
-
         codes = self.encoder(x, c_org)
         if c_trg is None:
             return torch.cat(codes, dim=-1)
