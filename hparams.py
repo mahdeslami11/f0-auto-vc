@@ -32,7 +32,7 @@ hparams = tf.contrib.training.HParams(
     rescaling=True,
     rescaling_max=0.999,
 
-    trim_silence=True,  # Whether to clip silence in Audio (at beginning and end of audio only, not the middle)
+    trim_silence=False,  # Whether to clip silence in Audio (at beginning and end of audio only, not the middle)
     # M-AILABS (and other datasets) trim params (there parameters are usually correct for any data, but definitely must be tuned for specific speakers)
     trim_fft_size=1024,
     trim_hop_size=256,
@@ -57,7 +57,6 @@ hparams = tf.contrib.training.HParams(
     freq = 16,
     pitch_bin = 256,
 
-
     ################################################################################
     # Training:
     batch_size = 2, # it is equal to N
@@ -71,38 +70,11 @@ hparams = tf.contrib.training.HParams(
     n_warmup_steps=4000, # ScheduledOptim : 4000, Exponential : 40000
     decay_rate = 0.000005,
     decay_step = 1000000,
-    # see lrschedule.py for available lr_schedule
-    # lr_schedule=None,#"adjust_learning_rate", # "noam_learning_rate_decay", "adjust_learning_rate"
-    # #lr_schedule_kwargs={},  # {"anneal_rate": 0.5, "anneal_interval": 50000},
-    # lr_schedule_kwargs={"start_decay": 50000, "decay_steps":30000, "decay_rate":0.5, "final_lr":1e-8},
-    nepochs=9999999999,
-    weight_decay=0.0,
-    clip_thresh=-1,
-    # max time steps can either be specified as sec or steps
-    # if both are None, then full audio samples are used in a batch
-    max_time_sec=None,
-    max_time_steps=8000,
-    # Hold moving averaged parameters and use them for evaluation
-    exponential_moving_average=True,
-    # averaged = decay * averaged + (1 - decay) * x
-    ema_decay=0.9999,
+    nepochs=500,
     ################################################################################
     # Save
-    # per-step intervals
-    checkpoint_interval=5000,
-    train_eval_interval=10000,
     # per-epoch interval
     save_every=20,
-    save_images_every=1,
-    test_eval_epoch_interval=5,
-    save_optimizer_state=True,
-
-    ################################################################################
-    # Log
-    log_step=20,
-    use_tensorboard=True,
-    ################################################################################
-    griffin_lim_iters = 60,
 )
 
 
