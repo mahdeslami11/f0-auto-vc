@@ -5,7 +5,7 @@ Based on
 - https://github.com/auspicious3000/autovc
 - https://github.com/auspicious3000/SpeechSplit
 - https://github.com/christopher-beckham/amr
-[2002.00198] Transforming Spectrum and Prosody for Emotional Voice Conversion with Non-Parallel Training Data (arxiv.org)
+http://[2002.00198] Transforming Spectrum and Prosody for Emotional Voice Conversion with Non-Parallel Training Data (arxiv.org)
 Blow: a single-scale hyperconditioned flow for non-parallel raw-audio voice conversion (neurips.cc)
 [1907.10185] Non-Parallel Voice Conversion with Cyclic Variational Autoencoder (arxiv.org)
 [2108.04395] StarGAN-VC+ASR: StarGAN-based Non-Parallel Voice Conversion Regularized by Automatic Speech Recognition (arxiv.org)
